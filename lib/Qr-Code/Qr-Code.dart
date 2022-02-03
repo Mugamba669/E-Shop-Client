@@ -103,6 +103,8 @@ class _QrCodeGeneState extends State<QrCodeGene> {
           Navigator.push(
             context,
             MaterialPageRoute(
+              settings: const RouteSettings(name: "../Views/Home.dart"),
+              maintainState: false,
               builder: (context) => const Home(),
               fullscreenDialog: true,
             ),

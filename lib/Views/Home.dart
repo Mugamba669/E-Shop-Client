@@ -31,6 +31,7 @@ class _HomeState extends State<Home> {
 // Demo items
   String urls = "images/beverages_images/";
   String category = "images/categories_images/";
+  String gurl = "images/grocery_images/";
   String prefix = "Shs ";
 
   ///* Tag names */
@@ -71,6 +72,28 @@ class _HomeState extends State<Home> {
     "Oil"
   ];
 
+  List<String> more = [
+    "apple.png",
+    "banana.png",
+    "beef.png",
+    "chicken.png",
+    "ginger.png",
+    "pepper.png"
+  ];
+
+  List<String> gnames = [
+    "Apples",
+    "Banana",
+    "Beef",
+    "Chicken",
+    "Ginger",
+    "Pepper"
+  ];
+
+  List<double> gprice = [2900, 2500, 22250, 1000, 4500, 1000];
+
+  List<int> q = [01, 02, 03, 04, 05, 06];
+
   /// Prices */
   List<double> prices = [5000, 2500, 3500, 3000, 1800, 2000];
   List<double> gross = [3000, 1000, 3300, 2000, 5000, 6000];
@@ -106,37 +129,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       // ignore: prefer_const_constructors
-      body: Center(
-        child: header == "Drinks"
-            ? GridView.count(
-                mainAxisSpacing: 10,
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                children: List.generate(
-                  items.length,
-                  (index) => CartItem(
-                    productUrl: urls + items[index],
-                    productName: names[index],
-                    price: prefix + prices[index].toString(),
-                    id: d_ids[index],
-                  ),
-                ),
-              )
-            : GridView.count(
-                mainAxisSpacing: 10,
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                children: List.generate(
-                  tag.length,
-                  (index) => CartItem(
-                    productUrl: category + tag[index],
-                    productName: grocery[index],
-                    price: prefix + gross[index].toString(),
-                    id: g_ids[index],
-                  ),
-                ),
-              ),
-      ),
+      body: Center(child: displayItem()),
       endDrawer: Drawer(
         elevation: 20,
         key: drawerKey,
@@ -256,11 +249,85 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              setState(() {
+                                header = "gitems";
+                              });
+                            });
+                            Navigator.pop(context);
+                          },
+                          // ignore: prefer_const_constructors
+                          child: Card(
+                            elevation: 3,
+                            child: Center(
+                              child: Text(
+                                "Fresh Cuts",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                      fontSize: 18,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 );
               });
         });
+  }
+
+  Widget displayItem() {
+    if (header == "Drinks") {
+      return GridView.count(
+        mainAxisSpacing: 10,
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        children: List.generate(
+          items.length,
+          (index) => CartItem(
+            productUrl: urls + items[index],
+            productName: names[index],
+            price: prefix + prices[index].toString(),
+            id: d_ids[index],
+          ),
+        ),
+      );
+    } else if (header == "gitems") {
+      return GridView.count(
+        mainAxisSpacing: 10,
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        children: List.generate(
+          tag.length,
+          (index) => CartItem(
+            productUrl: gurl + more[index],
+            productName: gnames[index],
+            price: prefix + gprice[index].toString(),
+            id: q[index],
+          ),
+        ),
+      );
+    } else {
+      return GridView.count(
+        mainAxisSpacing: 10,
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        children: List.generate(
+          tag.length,
+          (index) => CartItem(
+            productUrl: category + tag[index],
+            productName: grocery[index],
+            price: prefix + gross[index].toString(),
+            id: g_ids[index],
+          ),
+        ),
+      );
+    }
   }
 }

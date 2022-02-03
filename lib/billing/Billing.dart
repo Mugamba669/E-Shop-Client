@@ -69,6 +69,22 @@ class _BillingState extends State<Billing> {
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                 child: TextFormField(
+                  controller: emailController,
+                  textInputAction: TextInputAction.next,
+                  style: const TextStyle(color: Colors.black),
+                  keyboardType: TextInputType.emailAddress,
+                  // readOnly: true,
+                  // onTap: _openBottomSheet,
+                  decoration: const InputDecoration(
+                    hintText: "Email",
+                  ),
+                  validator: (value) =>
+                      value!.isNotEmpty ? null : "email is required",
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                child: TextFormField(
                   controller: currencyController,
                   textInputAction: TextInputAction.next,
                   style: const TextStyle(color: Colors.black),
@@ -87,6 +103,7 @@ class _BillingState extends State<Billing> {
                 child: TextFormField(
                   controller: phoneNumberController,
                   textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.phone,
                   style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     hintText: "Phone Number",
@@ -128,7 +145,7 @@ class _BillingState extends State<Billing> {
       context: context,
       publicKey: "FLWPUBK_TEST-288892a27911ae679fd74903d19c6e41-X".trim(),
       encryptionKey: "FLWSECK_TESTcc6563bff662".trim(),
-      email: "brunohectre@gmail.com".trim(),
+      email: emailController.text.trim(),
       fullName: "Test User",
       txRef: DateTime.now().toIso8601String(),
       narration: "Supermarket",
